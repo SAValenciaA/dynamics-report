@@ -8,6 +8,7 @@
     - Cinematica cuerpos rigidos
 
 1. Metodologias
+
     2. Cronogramas (Sara)
         - Reuniones y que se hizo en estas
         - Votaciones explicacion
