@@ -25,10 +25,10 @@
     - Codigo
 
 2. Resultados
-    - Mediciones
+    - Mediciones y medidas indirectas
 
 3. Discuciones de los resultados
-    -
+    - Discucion de lo anterior
 
 4. Conclusiones
 
