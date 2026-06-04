@@ -2,7 +2,6 @@
 *.bcf
 *.log
 *.xml
-*.pdf
 *.bak
 sections/*.aux
 build/
