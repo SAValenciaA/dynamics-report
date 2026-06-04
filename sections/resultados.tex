@@ -16,5 +16,30 @@ Todas estas características resultan en un sistema altamente fiable, rápido de
 El cual adicionalmente minimiza los factores de incertidumbre en el movimiento (tales como la fricción y la falta de rígidez de las partes), 
 permitiendo así mediciones precisas.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/montaje mecánico.jpg}
+  \caption{Montaje mecánico del prototipo}
+  \label{fig:montaje_mecanico}
+\end{figure}
+
 \subsection{Implementación de la instrumentación}
+
+Por su parte la implementación de dos de los tres sensores dentro del diseño mecánico se consideró para el prototipo.
+Estos dos sensores se encuentran sobre los actuadores lineales en A y C. Estos al ser acelerómetros miden la aceleración que actua sobre los deslizadores, de la cual luego se deducen la velocidad y la posición.
+Por su parte el tercer sensor se fija momentaneamente con un adhesivo sobre el punto B en la barra BC. Mientras que los deslizadorese en A y C presentan únicamente traslación, este sensor se encuentra midiendo un elemento
+que manifiesta movimiento de plano general, por lo cual este mide aceleración en los 2 ejes y adicionalmente la aceleración angular; de estas medidas se deducen la velocidad y su dirección, y la posición del punto B.
+\\
+La implementación de estos sensores se realizó mediane el protocolo de comunicación I2C y el uso de la libería FastIMU. La elección de este protocolo 
+conllevó a tener en cuenta también consdieraciones electrónicas las cuales influían en como el microcontrolador reconocía a los sensores.
+Entonces los sensores en A y C (IMU1 e IMU2) se encuentran en el mismo canal pero con una dirección diferente, mientras que el sensor en B (IMU3) se encuentra en un canal aparte.
+
+Esta arquitectura permitió recibir datos de los 3 sensores en simultaneo, los cuales el microcontrolador procesa posteriormente, y entrega los datos de interés para su fácil lectura mediante una terminal.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{img/resultados de banco de prueba.png}
+  \caption{Resultados del banco de prueba}
+  \label{fig:resultados_banco_prueba}
+\end{figure}
 
