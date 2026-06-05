@@ -1,1 +1,338 @@
 \section{Problema inicial}
+En la figura %\ref{fig:problem} 
+se muestra el problema asignado a este grupo de trabajo.
+Este consiste en dos eslabones articulados en un mismo punto, llamado $B$; cuyos
+extremos libres, Punto $C$ y punto $A$, son empujados por dos actuadores lineales en
+direcciones paralelas con velocidades dadas $v_A$ y $v_C$.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[height=8cm]{img/problem.pdf}
+	\caption{Mecanismo planteado.}
+	\label{fig:problem}
+\end{figure}
+
+Mediante un análisis vectorial, se desea determinar la posición, velocidad y
+aceleración del punto \(B\), así como la velocidad angular del eslabón \(CB\). Se
+consideran conocidas las longitudes \(v\), \(b\) y \(a\), junto con las velocidades
+\(v_C\) y \(v_A\). Por conveniencia, para la construcción del mecanismo, se adoptan los
+siguientes valores:
+
+\[
+v = 150\,\text{mm}, \qquad b = 250\,\text{mm}, \qquad a = 200\,\text{mm}
+\]
+
+\[
+v_C = 30\,\text{mm/s}, \qquad v_A = 20\,\text{mm/s}
+\]
+
+Quedan por determinar:
+\[
+\overrightarrow{r}_B,\quad \overrightarrow{v}_B,\quad \overrightarrow{a}_B,\quad \omega_{BC}
+\]
+% \input{sections/marco_teorico}  % Eliminada inclusión recursiva (causaba bucle)
+\subsection{Cinemática básica}
+La cinemática es la parte de la mecánica que estudia el movimiento de los cuerpos sin
+preocuparse por qué lo causan, es decir, sin importar fuerzas ni masas. Lo que interesa
+aquí son las variables geométricas: posición, velocidad y aceleración en función del tiempo.
+\\
+\subsubsection{Posición y desplazamiento}
+
+La posición de un punto en el plano se describe con un vector $\vec{r}$ que va desde el
+origen del sistema de referencia hasta ese punto:
+
+\begin{equation}
+	\vec{r} = x\,\hat{i} + y\,\hat{j}
+\end{equation}
+
+El desplazamiento entre dos posiciones es simplemente la diferencia:
+
+\begin{equation}
+	\Delta\vec{r} = \vec{r}_2 - \vec{r}_1 = (x_2 - x_1)\,\hat{i} + (y_2 - y_1)\,\hat{j}
+\end{equation}
+
+En el mecanismo, los puntos $A$, $B$ y $C$ se ubican así en el plano. El punto $B$ es el
+que queremos encontrar a partir de las posiciones que los actuadores imponen en $A$ y $C$.
+\\
+\subsubsection{Velocidad}
+
+La velocidad es la derivada de la posición respecto al tiempo:
+
+\begin{equation}
+	\vec{v} = \frac{d\vec{r}}{dt} = \dot{x}\,\hat{i} + \dot{y}\,\hat{j}
+\end{equation}
+
+Su magnitud (la rapidez) es:
+
+\begin{equation}
+	|\vec{v}| = \sqrt{v_x^2 + v_y^2}
+\end{equation}
+
+En nuestro caso, las velocidades de $A$ y $C$ son conocidas y verticales:
+$\vec{v}_A = 20\,\text{mm/s}\,\hat{j}$ y $\vec{v}_C = 30\,\text{mm/s}\,\hat{j}$.
+Lo que se quiere encontrar es $\vec{v}_B$.
+
+\subsubsection{Aceleración}
+
+La aceleración es la derivada de la velocidad:
+
+\begin{equation}
+	\vec{a} = \frac{d\vec{v}}{dt} = \ddot{x}\,\hat{i} + \ddot{y}\,\hat{j}
+\end{equation}
+
+Cuando un punto describe una trayectoria curvilínea, la aceleración tiene dos componentes:
+una tangencial (que cambia qué tan rápido va) y una normal o centrípeta (que cambia hacia
+dónde va):
+
+\begin{equation}
+	\vec{a} = a_t\,\hat{e}_t + a_n\,\hat{e}_n
+\end{equation}
+
+La componente centrípeta para movimiento circular vale:
+
+\begin{equation}
+	a_n = \omega^2 \cdot r
+\end{equation}
+
+donde $\omega$ es la velocidad angular y $r$ la distancia al centro de rotación.
+Esto aplica directamente al punto $B$, que sigue una trayectoria curvilínea al estar
+conectado a los dos eslabones.
+
+% ------------------------------------------------
+\subsection{Cinemática de cuerpos rígidos}
+
+Un cuerpo rígido es aquel en el que la distancia entre cualquier par de sus puntos no
+cambia durante el movimiento. Gracias a esto, se puede extender el análisis de una partícula
+a todo el cuerpo usando unas pocas ecuaciones.
+\\
+\subsubsection{Movimiento plano general}
+
+El movimiento plano de un cuerpo rígido siempre se puede separar en una traslación (que
+lleva un punto de referencia a su nueva posición) más una rotación alrededor de ese punto.
+En general:
+
+\begin{align} 
+	\vec{r}_B &= \vec{r}_A + \vec{r}_{B/A} \label{eq:pos_rel} \\
+	\vec{v}_B &= \vec{v}_A + \vec{v}_{B/A} \label{eq:vel_rel} \\
+	\vec{a}_B &= \vec{a}_A + \vec{a}_{B/A} \label{eq:acc_rel} 
+\end{align}
+
+\subsubsection{Ecuación de velocidad relativa}
+
+La velocidad de $B$ relativa a $A$, cuando el cuerpo rota con velocidad angular $\omega$,
+se calcula con el producto vectorial:
+
+\begin{equation}
+	\vec{v}_{B/A} = \vec{\omega} \times \vec{r}_{B/A}
+\end{equation}
+
+Con $\vec{\omega} = \omega\,\hat{k}$ y $\vec{r}_{B/A} = r_x\,\hat{i} + r_y\,\hat{j}$,
+el resultado en el plano es:
+
+\begin{equation}
+	\vec{v}_{B/A} = -\omega r_y\,\hat{i} + \omega r_x\,\hat{j}
+\end{equation}
+
+Aplicada al eslabón $CB$ del mecanismo:
+
+\begin{equation}
+	\vec{v}_B = \vec{v}_C + \vec{\omega}_{BC} \times \vec{r}_{B/C}
+	\label{eq:vel_eslabon}
+\end{equation}
+
+Esta ecuación vectorial equivale a dos ecuaciones escalares (componentes $x$ e $y$), con
+las que se pueden encontrar las dos incógnitas: las componentes de $\vec{v}_B$ y la
+velocidad angular $\omega_{BC}$.
+\\
+\subsubsection{Ecuación de aceleración relativa}
+
+La aceleración relativa tiene dos partes: la tangencial (por cambio en $\omega$) y la
+centrípeta (por cambio de dirección):
+
+\begin{equation}
+	\vec{a}_{B/A} = \vec{\alpha} \times \vec{r}_{B/A} - \omega^2\,\vec{r}_{B/A}
+\end{equation}
+
+donde $\alpha = \dot{\omega}$ es la aceleración angular. La aceleración total de $B$ queda:
+
+\begin{equation}
+	\vec{a}_B = \vec{a}_A + \vec{\alpha} \times \vec{r}_{B/A} - \omega^2\,\vec{r}_{B/A}
+\end{equation}
+
+Para el eslabón $CB$:
+
+\begin{equation}
+	\vec{a}_B = \vec{a}_C + \alpha_{BC}\,\hat{k} \times \vec{r}_{B/C}
+	- \omega_{BC}^2\,\vec{r}_{B/C}
+	\label{eq:acc_eslabon}
+\end{equation}
+
+De nuevo, dos ecuaciones escalares que permiten hallar $\vec{a}_B$ y $\alpha_{BC}$,
+una vez conocida $\omega_{BC}$ del paso anterior.
+\\
+\subsubsection{Lazo vectorial de cierre}
+
+Para encontrar la posición de $B$ a partir de la geometría del mecanismo, se plantea
+la ecuación de cierre del lazo:
+
+\begin{equation}
+	\vec{r}_B = \vec{r}_C + \vec{r}_{B/C} = \vec{r}_A + \vec{r}_{B/A}
+\end{equation}
+
+junto con las restricciones de longitud de cada eslabón:
+
+\begin{align}
+	|\vec{r}_{B/C}| &= b = 250\,\text{mm} \\
+	|\vec{r}_{B/A}| &= a = 200\,\text{mm}
+\end{align}
+
+Esto forma un sistema de dos ecuaciones con dos incógnitas ($x_B$, $y_B$) que tiene
+solución única para una configuración dada del mecanismo.
+
+% ------------------------------------------------
+\subsection{Mecanismo tornillo-tuerca}
+
+Para generar el movimiento lineal de los puntos $A$ y $C$ se optó por un mecanismo
+tornillo-tuerca, dado que sus componentes (barra roscada, tuerca y motor) son fácilmente
+conseguibles y ofrecen buena precisión sin necesidad de impresión 3D de piezas críticas.
+
+El principio es simple: el motor hace girar la barra roscada, y la tuerca que no puede
+girar porque está unida al eslabón avanza linealmente. La relación entre la velocidad
+angular del motor $\omega_m$ y la velocidad lineal resultante $v_L$ es:
+
+\begin{equation}
+	v_L = \frac{\omega_m \cdot p}{2\pi}
+\end{equation}
+
+donde $p$ es el paso del tornillo (avance por vuelta). El par necesario para vencer una
+carga axial $F$ con eficiencia $\eta$ es:
+
+\begin{equation}
+	T = \frac{F \cdot p}{2\pi\,\eta}
+\end{equation}
+
+% ------------------------------------------------
+\subsection{Motor paso a paso NEMA 17}
+
+El motor paso a paso es un motor eléctrico que no gira continuamente sino que avanza en
+pasos discretos. Cada pulso eléctrico que recibe el driver hace que el rotor se mueva un
+ángulo fijo, llamado ángulo de paso $\theta_s$. Para el NEMA 17 genérico usado en este
+proyecto, el ángulo de paso típico es de $1.8°$, lo que equivale a 200 pasos por vuelta.
+
+Esto lo hace ideal para este mecanismo porque permite controlar la posición y velocidad
+del actuador de forma precisa sin necesidad de un sensor de posición adicional en el motor,
+simplemente contando los pulsos enviados:
+
+\begin{equation}
+	\theta = N_{pasos} \cdot \theta_s = N_{pasos} \cdot 1.8°
+\end{equation}
+
+\begin{equation}
+	v_L = \frac{f_{pulsos} \cdot p}{N_{pasos/rev}}
+	= \frac{f_{pulsos} \cdot p}{200}
+\end{equation}
+
+donde $f_{pulsos}$ es la frecuencia de los pulsos enviados por el microcontrolador.
+
+A diferencia de un motor DC convencional, el motor paso a paso no requiere retroalimentación
+para mantener una velocidad constante en régimen normal, ya que sigue fielmente los pulsos
+de entrada siempre que la carga no supere el par de retención. Esto simplifica considerablemente
+el control del mecanismo.
+
+% ------------------------------------------------
+\subsection{Microcontrolador ESP32}
+
+El ESP32 es el cerebro del sistema. Es un microcontrolador de doble núcleo de 240 MHz con
+Wi-Fi y Bluetooth integrados, aunque en este proyecto se usa principalmente por su capacidad
+de generar señales de control precisas y leer sensores en tiempo real.
+
+Para controlar el motor NEMA 17 se usa la técnica STEP/DIR: el ESP32 envía pulsos digitales
+al driver del motor (por ejemplo A4988 o DRV8825) a través del pin STEP, y define la
+dirección de giro con el pin DIR. La frecuencia de los pulsos determina la velocidad:
+
+\begin{equation}
+	f_{STEP} = \frac{v_L \cdot N_{pasos/rev}}{p}
+\end{equation}
+
+El ESP32 también se encarga de leer los acelerómetros vía protocolo I2C y enviar los datos
+al computador por comunicación serial (UART) para su posterior procesamiento en Python o MATLAB.
+
+% ------------------------------------------------
+\subsection{Acelerómetro BMI160}
+
+El BMI160 es un sensor MEMS (Micro-Electro-Mechanical Systems) de 6 grados de libertad incluye un acelerómetro triaxial y un giroscopio triaxial en el mismo
+chip. En este proyecto se usan dos unidades, uno en el punto $B$ y otro en un punto de
+referencia, para medir las aceleraciones del mecanismo durante su movimiento.
+
+Su principio de funcionamiento se basa en la deflexión de una masa sísmica microscópica.
+Cuando el sensor experimenta una aceleración, la masa se desplaza respecto a la estructura
+fija, y ese desplazamiento se convierte en una diferencia de capacitancia que el chip
+transforma en un valor digital.
+
+La aceleración medida en unidades digitales (LSB) se convierte a $\text{m/s}^2$ usando
+la sensibilidad del sensor, que depende del rango de medición configurado:
+
+\begin{equation}
+	a = \frac{\text{valor}_{LSB}}{\text{Sensibilidad}} \cdot g
+\end{equation}
+
+Por ejemplo, con rango $\pm 2g$ la sensibilidad es de $16384\,\text{LSB}/g$, y con
+$\pm 4g$ es de $8192\,\text{LSB}/g$. Para este mecanismo, dado que las aceleraciones
+esperadas son bajas (del orden de pocos $\text{mm/s}^2$), se configura el rango más
+sensible ($\pm 2g$) para maximizar la resolución de las mediciones.
+
+La comunicación con el ESP32 se realiza por el bus I2C a una velocidad de hasta 400 kHz.
+Como se usan dos BMI160 en el mismo bus, se configuran en direcciones I2C distintas
+(0x68 y 0x69) conectando el pin SDO de cada uno a GND o VDD respectivamente.
+
+% ------------------------------------------------
+\subsection{Circuito electrónico}
+
+El circuito del prototipo se organiza en tres etapas: control, adquisición de datos y
+potencia.
+\subsubsection{Etapa de potencia -- Driver del motor paso a paso}
+
+El motor NEMA 17 no se conecta directamente al ESP32 porque requiere corrientes del orden
+de 1 A por fase, mucho más de lo que puede entregar un microcontrolador. Por eso se usa
+un driver dedicado (A4988 o DRV8825) que actúa como interfaz entre los pulsos lógicos
+del ESP32 y la corriente de las bobinas del motor.
+
+El driver regula la corriente máxima por fase mediante un potenciómetro de ajuste. La
+corriente de referencia $I_{ref}$ se relaciona con el voltaje en ese pin según:
+
+\begin{equation}
+	I_{ref} = \frac{V_{ref}}{8 \cdot R_{sense}} \quad \text{(para A4988)}
+\end{equation}
+
+donde $R_{sense}$ es la resistencia de detección de corriente del driver (típicamente
+$0.1\,\Omega$ en módulos comerciales).
+\subsubsection{Etapa lógica -- Conexiones del ESP32}
+
+El ESP32 opera a 3.3 V en sus pines GPIO, lo cual es directamente compatible con los
+niveles lógicos del driver de motor y del BMI160. Las conexiones principales son:
+
+\begin{itemize}
+	\item \textbf{STEP / DIR} del driver: conectados a dos GPIO del ESP32 por cada motor.
+	\item \textbf{SDA / SCL} (I2C): bus compartido entre los dos BMI160 y el ESP32
+	(pines GPIO 21 y GPIO 22 por defecto en ESP32).
+	\item \textbf{ENABLE} del driver: activo en bajo; se mantiene en LOW para habilitar
+	el motor durante la operación.
+\end{itemize}
+\subsubsection{Alimentación}
+
+
+El circuito necesita dos niveles de tensión:
+
+\begin{itemize}
+	\item $3.3\,\text{V}$ para el ESP32 y los sensores BMI160 (regulado internamente
+	por el módulo ESP32).
+	\item $12\,\text{V}$ (o el voltaje nominal del NEMA 17) para la etapa de potencia
+	del driver.
+\end{itemize}
+
+Es importante separar las masas de referencia de ambas etapas, o al menos usar un plano
+de masa común bien conectado, para evitar que el ruido eléctrico de la conmutación del
+motor afecte las lecturas del acelerómetro.
+
+% Sección incluida ya en main.tex; comentar para evitar duplicado de etiquetas
+% \input{sections/metodologias}
