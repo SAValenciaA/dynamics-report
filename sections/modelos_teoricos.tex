@@ -1,1 +1,189 @@
 \section{Modelos Teóricos}
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (A) at (0,0);
+    \coordinate (C) at (3,3);
+    \coordinate (B) at (5,-1);
+    \coordinate (h) at (1,0);
+    \coordinate (nh) at ($(B)+(-1,0)$);
+    \coordinate (v) at (0,1);
+    \fill[color=black] (A) circle [radius=3pt] node[left] {$A$};
+    \fill[color=black] (C) circle [radius=3pt] node[above] {$C$};
+    \fill[color=black] (B) circle [radius=3pt] node[right] {$B$};
+    \draw[ultra thick] (A) -- (C) node[midway, above left] {$a$};
+    \draw[ultra thick] (B) -- (C) node[midway, above right] {$a$};
+    \pic [draw, angle radius=0.8cm] {angle = h--A--C};
+    \node at (A) [shift={(25:1cm)}] {$\beta$};
+    \draw (A) -- (h);
+    \pic [draw, angle radius=0.8cm] {angle = C--B--nh};
+    \node at (B) [shift={(145:1cm)}] {$\gamma$};
+    \draw (B) -- (nh);
+    \draw[thick, ->] (A) -- +(0,1) node[above] {$V_A$};
+    \draw[thick, ->] (B) -- +(0,-1) node[below] {$V_B$};
+    \draw[thick, ->] (C) -- +(1,0.5) node[above] {$V_C$};
+  \end{tikzpicture}
+  \caption{Diagrama cinemático del problema.}
+\end{figure}
+
+El análisis cinemático del mecanismo se lleva a cabo mediante el método de la
+velocidad relativa, el cual permite establecer relaciones vectoriales entre los
+distintos eslabones del sistema \cite{hibbeler2016}. Este método resulta
+especialmente adecuado para mecanismos de cuatro barras, ya que descompone el
+movimiento absoluto de un punto en términos del movimiento de un punto de
+referencia más el movimiento relativo respecto a dicho punto
+\cite{meriam2018}. Para resolver las velocidades se plantean dos ecuaciones
+vectoriales con dos incógnitas, una por cada brazo del mecanismo. Con este
+propósito, se construyen los diagramas de velocidad relativa para cada brazo,
+comenzando por el brazo $AC$.
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (A) at (0,0);
+    \coordinate (C) at (3,3);
+    \coordinate (h) at (1,0);
+    \coordinate (v) at (0,1);
+    \fill[color=black] (A) circle [radius=3pt] node[left] {$A$};
+    \fill[color=black] (C) circle [radius=3pt] node[above right] {$C$};
+    \draw[ultra thick] (A) -- (C) node[midway, above left] {$a$};
+    \pic [draw, angle radius=0.8cm] {angle = h--A--C};
+    \node at (A) [shift={(25:1cm)}] {$\beta$};
+    \draw (A) -- (h);
+    \draw[thick, ->] (A) -- +(0,1) node[above] {$V_A$};
+    \draw[thick, ->] (C) -- +(1,-1) node[right] {$\vec{V}_{C/A}$};
+    \draw ($(C)+(-0.3,-0.3)$) -- +(0.3,-0.3) -- +(0.6,0);
+    \coordinate (Cv) at ($(C)+(0,-1)$);
+    \coordinate (Cv2) at ($(C)+(1,-1)$);
+    \pic [draw, angle radius=0.8cm] {angle = Cv--C--Cv2};
+    \node at (C) [shift={(-70:1.1cm)}] {$\beta$};
+    \draw (C) -- +($(0,-1)$);
+  \end{tikzpicture}
+  \caption{Diagrama de velocidad relativa $\vec{V}_{C/A}$ respecto al brazo $AC$.}
+\end{figure}
+
+Dado que la velocidad relativa $\vec{V}_{C/A}$ es perpendicular al brazo $AC$
+\cite{beer2019}, su dirección forma un ángulo $\beta$ con la vertical, tal como
+se ilustra en la figura anterior. Análogamente, se construye el diagrama
+correspondiente al brazo $CB$.
+
+\begin{figure}[!h]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (B) at (5,-1);
+    \coordinate (C) at (3,3);
+    \coordinate (nh) at ($(B)+(-1,0)$);
+    \fill[color=black] (B) circle [radius=3pt] node[right] {$B$};
+    \fill[color=black] (C) circle [radius=3pt] node[above left] {$C$};
+    \draw[ultra thick] (B) -- (C) node[midway, above right] {$a$};
+    \pic [draw, angle radius=0.8cm] {angle = C--B--nh};
+    \node at (B) [shift={(145:1cm)}] {$\gamma$};
+    \draw (B) -- (nh);
+    \draw[thick, ->] (B) -- +(0,-1) node[below] {$V_B$};
+    \draw[thick, ->] (C) -- +(-1,-0.5) node[left] {$\vec{V}_{C/B}$};
+    \draw ($(C)+(0.3,-0.5)$) -- +(-0.3,-0.15) -- +(-0.6,0.3);
+    \coordinate (Cv) at ($(C)+(0,-1)$);
+    \coordinate (Cv2) at ($(C)+(-1,-0.5)$);
+    \pic [draw, angle radius=0.8cm] {angle = Cv2--C--Cv};
+    \node at (C) [shift={(250:1.1cm)}] {$\gamma$};
+    \draw (C) -- +(0,-1);
+  \end{tikzpicture}
+  \caption{Diagrama de velocidad relativa $\vec{V}_{C/B}$ respecto al brazo $CB$.}
+\end{figure}
+
+Por la misma razón geométrica, $\vec{V}_{C/B}$ es perpendicular al brazo $CB$
+y forma un ángulo $\gamma$ con la vertical. A partir de ambos diagramas es
+posible expresar las velocidades relativas en notación vectorial cartesiana
+\cite{hibbeler2016}:
+
+% ── Velocidad de C respecto a A y B ─────────────────────────────────────────
+\begin{equation*}
+    \vec{V}_{C/A} = V_{C/A}\sin\beta\,\ihat - V_{C/A}\cos\beta\,\jhat
+\end{equation*}
+
+\begin{equation*}
+    \vec{V}_{C/B} = V_{C/B}\sin\gamma\,\ihat + V_{C/B}\cos\gamma\,\jhat
+\end{equation*}
+
+Aplicando la ecuación vectorial de velocidad relativa \cite{meriam2018}, se
+establece la siguiente igualdad:
+
+% ── Ecuación vectorial de velocidad ─────────────────────────────────────────
+\begin{equation*}
+    \vec{V}_{C/A} + \vec{V}_A = \vec{V}_C = \vec{V}_{C/B} + \vec{V}_B
+\end{equation*}
+
+Sustituyendo las expresiones vectoriales y separando la ecuación resultante en
+sus componentes $x$ e $y$, se obtiene el siguiente sistema de dos ecuaciones
+con dos incógnitas, $V_{C/A}$ y $V_{C/B}$:
+
+% ── Sistema 2×2 para velocidades ────────────────────────────────────────────
+\begin{equation*}
+    \begin{cases}
+        V_{C/A}\sin\beta - V_{C/B}\sin\gamma = 0 \\
+        V_{C/A}\cos\beta + V_{C/B}\cos\gamma = V_A + V_B
+    \end{cases}
+\end{equation*}
+
+Este sistema lineal admite solución directa, de la cual se determinan las
+magnitudes de las velocidades relativas y, por consiguiente, las velocidades
+angulares $\omega_{C/A}$ y $\omega_{C/B}$ de cada brazo \cite{beer2019}.
+Conocidas estas, se procede al análisis de aceleración, para el cual se
+requiere la información de posición de cada brazo expresada en forma vectorial
+\cite{hibbeler2016}:
+
+% ── Definición de vectores de posición ──────────────────────────────────────
+\begin{align*}
+    \vec{r}_{C/A} &= a\cos\beta\,\ihat + a\sin\beta\,\jhat\\
+    \vec{r}_{C/B} &= -a\cos\gamma\,\ihat + a\sin\gamma\,\jhat
+\end{align*}
+
+Adicionalmente, dado que el movimiento es plano, todas las velocidades y
+aceleraciones angulares están orientadas en la dirección del eje $z$
+\cite{meriam2018}:
+
+% ── Velocidades y aceleraciones angulares ────────────────────────────────────
+\begin{align*}
+    \vec{\omega}_{C/A} = \omega_{C/A}\,\khat, \qquad
+    \vec{\omega}_{C/B} = \omega_{C/B}\,\khat \\
+    \vec{\alpha}_{C/A} = \alpha_{C/A}\,\khat, \qquad
+    \vec{\alpha}_{C/B} = \alpha_{C/B}\,\khat
+\end{align*}
+
+Con toda esta información, se aplica la ecuación general de aceleración
+relativa \cite{beer2019}, la cual incluye tanto el término tangencial,
+asociado a la aceleración angular, como el término centrípeto, asociado a la
+velocidad angular al cuadrado:
+
+% ── Aceleración de C desde A ─────────────────────────────────────────────────
+\begin{align*}
+  \vec{a}_C &= \vec{\alpha}_{C/A} \times \vec{r}_{C/A} + \vec{\omega}_{C/A} \times
+    \left(\vec{\omega}_{C/A} \times \vec{r}_{C/A}\right) + \vec{a}_A \\
+     &= \vec{\alpha}_{C/B} \times \vec{r}_{C/B} + \vec{\omega}_{C/B} \times
+    \left(\vec{\omega}_{C/B} \times \vec{r}_{C/B}\right) + \vec{a}_B
+\end{align*}
+
+Desarrollando los productos vectoriales e igualando componentes $x$ e $y$ de
+ambas expresiones, se obtiene un nuevo sistema lineal de dos ecuaciones con
+dos incógnitas, $\alpha_{C/A}$ y $\alpha_{C/B}$, el cual puede escribirse en
+forma matricial compacta \cite{hibbeler2016}:
+
+\begin{equation*}
+    \resizebox{\columnwidth}{!}{$
+    \begin{bmatrix}
+        -a\sin\beta & a\sin\gamma \\
+        a\cos\beta  & a\cos\gamma
+    \end{bmatrix}
+    \begin{bmatrix} \alpha_{C/A} \\ \alpha_{C/B} \end{bmatrix}
+    =
+    \begin{bmatrix}
+        a(\omega_{C/B}^{2}\cos\gamma - \omega_{C/A}^{2}\cos\beta) - a_A \\
+        a(\omega_{C/A}^{2}\sin\beta - \omega_{C/B}^{2}\sin\gamma) - a_B
+    \end{bmatrix}
+    $}
+\end{equation*}
+
+Una vez resuelto este sistema, es posible determinar las aceleraciones
+angulares de ambos brazos y, a partir de ellas, la aceleración absoluta del
+punto $C$ \cite{meriam2018}.

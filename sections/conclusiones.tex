@@ -1,1 +1,50 @@
 \section{Conclusiones}
+A partir de la implementación física del mecanismo y del sistema de adquisición
+de datos, se identificaron diversas limitaciones de carácter mecánico y
+electrónico que comprometieron la precisión de las mediciones y la
+confiabilidad del sistema en general. A continuación se presentan las
+principales observaciones y las mejoras propuestas para una versión futura del
+prototipo.
+
+\subsection*{Juego mecánico en las articulaciones}
+
+Se evidenció una cantidad considerable de juego mecánico en dos puntos
+críticos del mecanismo: la unión entre la tuerca y la barra roscada, y la
+articulación $C$. Este juego introdujo movimientos no deseados durante la
+operación, lo cual afectó directamente la calidad de las mediciones al generar
+desplazamientos no contemplados en el modelo cinemático. Como solución, la
+siguiente versión del prototipo incorporará una barra adicional que garantice
+el alineamiento de las tuercas y que, al crear un segundo punto de apoyo,
+elimine efectivamente el juego presente en la configuración actual.
+
+\subsection*{Gestión del cableado entre sensores y microcontrolador}
+
+Las conexiones eléctricas de largo recorrido entre los sensores y el
+microcontrolador fueron realizadas mediante cables UTP, lo cual generó
+múltiples dificultades durante el montaje y redujo la confiabilidad del
+sistema. La longitud y flexibilidad de estos cables propiciaron desconexiones
+intermitentes y complicaron el proceso de ensamblaje. En la siguiente versión
+se reemplazarán por cables de cobre de sección adecuada, dirigidos por debajo
+del montaje de forma ordenada, con el fin de mejorar tanto la robustez de las
+conexiones como la mantenibilidad del sistema.
+
+\subsection*{Tolerancias en piezas fabricadas por manufactura aditiva}
+
+Las piezas producidas mediante impresión 3D presentaron reiterados problemas
+de tolerancia dimensional, los cuales requirieron intervención manual mediante
+lijado, taladrado y otros procesos de acabado para lograr el ensamblaje
+correcto. Esto incrementó el tiempo de montaje y comprometió la repetibilidad
+del proceso de fabricación. La siguiente versión adoptará tolerancias más
+holgadas en el diseño o, en su defecto, revisará el paradigma de diseño para
+evitar ajustes de alta precisión que sean difíciles de alcanzar con los
+parámetros de impresión disponibles.
+
+\subsection*{Confiabilidad del sistema de conexiones electrónicas}
+
+Las protoboards empleadas para el prototipado electrónico comenzaron a
+presentar fallas de contacto intermitentes debido a su naturaleza desmontable,
+lo que introdujo fuentes de error difíciles de diagnosticar durante la
+operación. Dado que esta característica es inherente a las protoboards, la
+siguiente versión del sistema migrará hacia una PCB dedicada, lo cual
+eliminará este tipo de fallas, reducirá el ruido eléctrico y proporcionará una
+plataforma electrónica más robusta y reproducible.
